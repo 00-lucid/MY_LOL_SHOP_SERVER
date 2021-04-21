@@ -919,7 +919,7 @@ export class AppService {
 
     if (userRp.dataValues.rp < body.total) {
       console.log('!!!!!!!!!!!!!!!!!!!!');
-      throw new Error('잔액이 부족합니다');
+      return '잔액이 부족합니다';
     } else {
       // rp 차감
       await User.increment(
@@ -1033,6 +1033,10 @@ export class AppService {
   async success(query): Promise<string> {
     // const secretKey = 'dGVzdF9za181R2VQV3Z5Sm5yS2JkS05QMVplVmdMek45N0VvOg==';
     const secretKey = 'test_sk_5GePWvyJnrKbdKNP1ZeVgLzN97Eo:';
+    // ture === query 파라미터로 전달된 amount 값과 최초에 requestPayment를 호출할 때 사용했던 amount 값이 일치하면
+    console.log('🚀');
+    console.log(query);
+
     if (true) {
       const { data } = await axios.post(
         `https://api.tosspayments.com/v1/payments/${query.paymentKey}`,
@@ -1042,7 +1046,6 @@ export class AppService {
         },
         {
           headers: {
-            // Authorization: `Basic ${secretKey}`,
             Authorization:
               `Basic ` + Buffer.from(secretKey + ':').toString('base64'),
             'Content-type': 'application/json',
@@ -1051,8 +1054,43 @@ export class AppService {
       );
       // 결제 끝, 홈으로 사용자를 홈으로 보내줘야 함
       if (data.status === 'DONE') {
-        return '토스 끝!';
+        // data의 금액만큼 rp를 충전해줘야됨
+        // const user = await helper.helpGetUser(token);
+
+        // 결제 코드
+        // 충전 코드
+        let targetRp;
+        if (query.amount === '4900') {
+          targetRp = 580;
+        } else if (query.amount === '9900') {
+          targetRp = 1320;
+        } else if (query.amount === '19900') {
+          targetRp = 2700;
+        } else if (query.amount === '35000') {
+          targetRp = 4350;
+        } else if (query.amount === '49900') {
+          targetRp = 6275;
+        } else if (query.amount === '99900') {
+          targetRp = 13000;
+        }
+        // 충전하려는 rp의 양과 userId를 가져와야 함
+        await User.increment(
+          {
+            rp: +targetRp,
+          },
+          {
+            where: {
+              id: 2,
+            },
+          },
+        );
+
+        return '성공';
+      } else {
+        return '실패';
       }
+    } else {
+      return '잘못된 접근입니다';
     }
   }
 

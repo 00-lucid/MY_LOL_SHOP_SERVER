@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Item extends Model {
     /**
@@ -11,28 +9,37 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Item.hasMany(models.LineItem, {onDelete: 'cascade'});
-      Item.hasMany(models.Tag, {onDelete: 'cascade'});
+      Item.hasMany(models.LineItem, { onDelete: 'cascade' });
+      Item.hasMany(models.Tag, { onDelete: 'cascade' });
       // Item.belongsToMany(models.User, {
       //   through: 'Dibs',
       // })
-      Item.belongsToMany(models.User, {through: 'Dibs', targetKey:'id', foreignKey: 'itemId', onDelete: 'cascade'})
+      Item.belongsToMany(models.User, {
+        through: 'Dibs',
+        targetKey: 'id',
+        foreignKey: 'itemId',
+        onDelete: 'cascade',
+      });
     }
-  };
-  Item.init({
-    name: DataTypes.STRING,
+  }
+  Item.init(
+    {
+      name: DataTypes.STRING,
 
-    rate: DataTypes.FLOAT,
-    review: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
-    
-    status: DataTypes.STRING,
-    count: DataTypes.INTEGER,
+      rate: DataTypes.FLOAT,
+      review: DataTypes.INTEGER,
+      price: DataTypes.INTEGER,
 
-    img: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Item',
-  });
+      status: DataTypes.STRING,
+      sale: DataTypes.STRING,
+      count: DataTypes.INTEGER,
+
+      img: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'Item',
+    },
+  );
   return Item;
 };

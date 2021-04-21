@@ -20,6 +20,7 @@ module.exports = {
           review: 91,
           price: 19570,
           status: 'sale',
+          sale: '30',
           count: 11,
           img:
             'https://d392eissrffsyf.cloudfront.net/storeImages/bundles/99901061.jpg',
@@ -80,6 +81,7 @@ module.exports = {
           review: 110000,
           price: 1350,
           status: 'sale',
+          sale: '10',
           count: 400000,
           img:
             'https://cdn-store.leagueoflegends.co.kr/images/v2/champion-splashes/28015.jpg',
@@ -105,6 +107,7 @@ module.exports = {
           review: 5000,
           price: 1350,
           status: 'sale',
+          sale: '50',
           count: 400000,
           img:
             'https://cdn-store.leagueoflegends.co.kr/images/v2/champion-splashes/20016.jpg',

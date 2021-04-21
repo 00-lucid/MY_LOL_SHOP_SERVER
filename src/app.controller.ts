@@ -228,16 +228,23 @@ export class AppController {
   }
 
   @Get('/success')
-  success(@Req() req: Request, @Query() query): object {
-    return this.appService.success(query);
+  async success(
+    @Req() req: Request,
+    @Query() query,
+    @Res() res,
+  ): Promise<object> {
+    const result = await this.appService.success(query);
+
+    if (result === '성공') {
+      return res.redirect('http://localhost:8080/');
+    } else {
+      return res.redirect('http://localhost:8080/fail');
+    }
   }
 
   @Get('/get-line-item')
   getLineItemForBasket(@Req() req: Request): object {
     const token = helper.helpGetToken(req);
-    console.log(
-      '111111111111111111111111111111111111111111111111111111111111111111111111111',
-    );
     return this.appService.getLineItemForBasket(token);
   }
 

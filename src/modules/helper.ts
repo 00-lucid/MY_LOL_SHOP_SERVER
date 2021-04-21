@@ -3,7 +3,11 @@ const jwt = require('jsonwebtoken');
 export default {
   // 모듈 함수의 특징: help... 형식의 함수명
   helpGetToken(req) {
-    return req.headers.authorization.split('Bearer ')[1];
+    if (req.headers.authorization) {
+      return req.headers.authorization.split('Bearer ')[1];
+    } else {
+      return undefined;
+    }
   },
   // jwt 인증하고 유저 id 받아오는 함수
   helpGetUser(token) {

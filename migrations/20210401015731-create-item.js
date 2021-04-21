@@ -6,49 +6,51 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
 
       rate: {
         type: Sequelize.FLOAT,
-        defaultValue: 0
+        defaultValue: 0,
       },
       review: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
+        defaultValue: 0,
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      
+
       status: {
         type: Sequelize.STRING,
-        defaultValue: 'on'
+        defaultValue: 'on',
       },
-
-
+      sale: {
+        type: Sequelize.STRING,
+        default: null,
+      },
       count: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
+        defaultValue: 0,
       },
       img: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
 
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Items');
-  }
+  },
 };
