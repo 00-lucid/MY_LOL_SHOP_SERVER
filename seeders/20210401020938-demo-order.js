@@ -10,15 +10,19 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
-    return await queryInterface.bulkInsert('orders', [
-      {
-        userId: 1,
-        total: 1350,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-    ], {})
+     */
+    return await queryInterface.bulkInsert(
+      'orders',
+      [
+        {
+          userId: 1,
+          total: 1350,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {},
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -29,5 +33,5 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkInsert('orders', null, {});
-  }
+  },
 };

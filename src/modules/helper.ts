@@ -13,6 +13,8 @@ export default {
   helpGetUser(token) {
     return jwt.verify(token, 'salt', async (err, decoded) => {
       if (err) {
+        console.log('🚀');
+        console.log(err);
         throw new Error('invalid token');
       }
 

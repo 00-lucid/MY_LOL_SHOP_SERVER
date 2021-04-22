@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -227,19 +228,20 @@ export class AppController {
     return this.appService.clearBellBedge(token);
   }
 
-  @Get('/success')
+  @Post('/success')
   async success(
     @Req() req: Request,
-    @Query() query,
     @Res() res,
-  ): Promise<object> {
-    const result = await this.appService.success(query);
-
-    if (result === '성공') {
-      return res.redirect('http://localhost:8080/');
-    } else {
-      return res.redirect('http://localhost:8080/fail');
-    }
+    @Body() body,
+  ): Promise<string> {
+    const token = helper.helpGetToken(req);
+    const result = await this.appService.success(token, body);
+    return result;
+    // if (result === '성공') {
+    //   return res.redirect('http://localhost:8080/');
+    // } else {
+    //   return res.redirect('http://localhost:8080/fail');
+    // }
   }
 
   @Get('/get-line-item')
@@ -274,5 +276,12 @@ export class AppController {
     const token = helper.helpGetToken(req);
 
     return this.appService.deleteItem(token, body);
+  }
+
+  @Delete('/delete-bells')
+  deleteBells(@Req() req: Request): object {
+    const token = helper.helpGetToken(req);
+
+    return this.appService.deleteBells(token);
   }
 }
