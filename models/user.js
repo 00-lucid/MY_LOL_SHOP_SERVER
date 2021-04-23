@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -16,22 +14,31 @@ module.exports = (sequelize, DataTypes) => {
       // User.belongsToMany(models.Item, {
       //   through: 'Dibs',
       // })
-      User.hasMany(models.Search, {onDelete: 'cascade'});
-      User.hasMany(models.Bell, {onDelete: 'cascade'});
-      User.hasMany(models.FilterTag, {onDelete: 'cascade'});
-      User.belongsToMany(models.Item, {through: 'Dibs', targetKey:'id', foreignKey: 'userId', onDelete: 'cascade'})
+      User.hasMany(models.Review, { onDelete: 'cascade' });
+      User.hasMany(models.Search, { onDelete: 'cascade' });
+      User.hasMany(models.Bell, { onDelete: 'cascade' });
+      User.hasMany(models.FilterTag, { onDelete: 'cascade' });
+      User.belongsToMany(models.Item, {
+        through: 'Dibs',
+        targetKey: 'id',
+        foreignKey: 'userId',
+        onDelete: 'cascade',
+      });
     }
-  };
-  User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    name: DataTypes.STRING,
-    tier: DataTypes.STRING,
-    buyCount: DataTypes.INTEGER,
-    rp: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  }
+  User.init(
+    {
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      name: DataTypes.STRING,
+      tier: DataTypes.STRING,
+      buyCount: DataTypes.INTEGER,
+      rp: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'User',
+    },
+  );
   return User;
 };

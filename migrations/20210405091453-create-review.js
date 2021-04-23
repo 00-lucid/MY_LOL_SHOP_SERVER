@@ -6,42 +6,43 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userId: {
         type: Sequelize.INTEGER,
-        references:{model: 'Users', key: 'id'}
+        references: { model: 'Users', key: 'id' },
+        onDelete: 'CASCADE',
       },
       itemId: {
         type: Sequelize.INTEGER,
-        references:{model: 'Items', key: 'id'}
+        references: { model: 'Items', key: 'id' },
       },
       rate: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
       },
       text: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       buyOption: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       buyCount: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Reviews');
-  }
+  },
 };

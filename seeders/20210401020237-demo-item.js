@@ -142,8 +142,10 @@ module.exports = {
           name: '우주 그루브 블리츠와 크랭크',
           rate: 4.9,
           review: 5000,
-          price: 1850,
-          status: 'on',
+          price: 1820,
+
+          status: 'sale',
+          sale: '10',
           count: 400000,
           img:
             'https://cdn-store.leagueoflegends.co.kr/images/v2/champion-splashes/53029.jpg',
@@ -155,7 +157,8 @@ module.exports = {
           rate: 4.9,
           review: 5000,
           price: 1350,
-          status: 'on',
+          status: 'sale',
+          sale: '10',
           count: 400000,
           img:
             'https://cdn-store.leagueoflegends.co.kr/images/v2/champion-splashes/86024.jpg',
@@ -218,7 +221,8 @@ module.exports = {
           name: '전투사관학교 요네',
           rate: 4.9,
           review: 5000,
-          price: 1350,
+          price: 1820,
+
           status: 'on',
           count: 400000,
           img:
@@ -268,7 +272,8 @@ module.exports = {
           name: '꿀잼 코그모',
           rate: 4.9,
           review: 5000,
-          price: 1350,
+          price: 1820,
+
           status: 'on',
           count: 400000,
           img:
@@ -365,7 +370,8 @@ module.exports = {
           rate: 4.9,
           review: 5000,
           price: 1350,
-          status: 'on',
+          status: 'sale',
+          sale: '50',
           count: 400000,
           img:
             'https://cdn-store.leagueoflegends.co.kr/images/v2/champion-splashes/79011.jpg',
@@ -378,7 +384,8 @@ module.exports = {
           rate: 4.9,
           review: 5000,
           price: 1350,
-          status: 'on',
+          status: 'sale',
+          sale: '50',
           count: 400000,
           img:
             'https://cdn-store.leagueoflegends.co.kr/images/v2/champion-splashes/133005.jpg',
@@ -387,11 +394,12 @@ module.exports = {
         },
 
         {
-          name: '나무정렬 아지르',
+          name: '나무정령 아지르',
           rate: 4.9,
           review: 5000,
           price: 1350,
-          status: 'on',
+          status: 'sale',
+          sale: '30',
           count: 400000,
           img:
             'https://cdn-store.leagueoflegends.co.kr/images/v2/champion-splashes/268005.jpg',
@@ -400,11 +408,12 @@ module.exports = {
         },
 
         {
-          name: '나무정렬 오른',
+          name: '나무정령 오른',
           rate: 4.9,
           review: 5000,
           price: 1350,
-          status: 'on',
+          status: 'sale',
+          sale: '30',
           count: 400000,
           img:
             'https://cdn-store.leagueoflegends.co.kr/images/v2/champion-splashes/516002.jpg',
@@ -413,10 +422,11 @@ module.exports = {
         },
 
         {
-          name: '나무정렬 자야',
+          name: '나무정령 자야',
           rate: 4.9,
           review: 5000,
-          price: 1350,
+          price: 1820,
+
           status: 'on',
           count: 400000,
           img:
