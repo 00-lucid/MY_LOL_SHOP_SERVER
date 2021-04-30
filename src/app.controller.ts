@@ -18,17 +18,19 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import helper from './modules/helper';
 
 // interface는 들어오는 객체 프로퍼티의 타입을 지정하고 검사가 가능하게 한다
-interface Message {
-  message: string;
-}
+// interface Message {
+//   message: string;
+// }
 
 @Controller() // base url
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post('/add-line-item')
-  addLineItem(@Body() body): object {
-    return this.appService.addLineItem(body);
+  addLineItem(@Body() body, @Req() req: Request): object {
+    const token = helper.helpGetToken(req);
+
+    return this.appService.addLineItem(body, token);
   }
 
   @Post('add-dib')
@@ -235,8 +237,7 @@ export class AppController {
     @Body() body,
   ): Promise<string> {
     const token = helper.helpGetToken(req);
-    const result = await this.appService.success(token, body);
-    return result;
+    return this.appService.success(token, body);
     // if (result === '성공') {
     //   return res.redirect('http://localhost:8080/');
     // } else {

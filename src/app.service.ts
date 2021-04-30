@@ -33,16 +33,18 @@ export class AppService {
     return 'Hello World!';
   }
 
-  async addLineItem(body): Promise<object> {
+  async addLineItem(body, token): Promise<object> {
     // name img lineTotal validate check는 client에서
     // client에서 json된 데이터가 오고 그것을 그대로 저장한다.
     // 생성된 아이탬 이미지를 보내줄 때는?? => 생성할 때 db에 저장된 img Object를 가져와서 URL.createObjectURL(object)를 이용해서 url화 한 뒤 가져온다
+    const user = await helper.helpGetUser(token);
+
     const createItem = await LineItem.create({
       name: body.name,
       img: body.img,
       itemId: body.itemId,
       lineTotal: body.lineTotal,
-      userId: 2,
+      userId: user.id,
       buyOption: body.buyOption,
       buyCount: body.buyCount,
     });
@@ -1044,17 +1046,12 @@ export class AppService {
   }
 
   async success(token, body): Promise<string> {
-    // const secretKey = 'dGVzdF9za181R2VQV3Z5Sm5yS2JkS05QMVplVmdMek45N0VvOg==';
-
     const user = await helper.helpGetUser(token);
-    console.log(body);
     const secretKey = 'test_sk_5GePWvyJnrKbdKNP1ZeVgLzN97Eo:';
     if (body.query[0] && body.query[1] && body.query) {
       const orderId = body.query[0].split('=')[1];
       const paymentKey = body.query[1].split('=')[1];
       const amount = body.query[2].split('=')[1];
-      // return '성공';
-      // ture === query 파라미터로 전달된 amount 값과 최초에 requestPayment를 호출할 때 사용했던 amount 값이 일치하면
       if (true) {
         const { data } = await axios.post(
           `https://api.tosspayments.com/v1/payments/${paymentKey}`,
