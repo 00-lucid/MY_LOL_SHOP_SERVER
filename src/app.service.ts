@@ -411,138 +411,142 @@ export class AppService {
   }
 
   async getUserInfo(token): Promise<object> {
-    const user = await helper.helpGetUser(token);
+    try {
+      const user = await helper.helpGetUser(token);
 
-    const userInfo = await User.findOne({
-      where: {
-        id: user.id,
-      },
-    });
+      const userInfo = await User.findOne({
+        where: {
+          id: user.id,
+        },
+      });
 
-    // delete userInfo.dataValues.password;
-    // buy Count에 따른 티어 이미지와 남은 구매 횟수도 알려줘야 됨
-    let tierInfo = { tierImg: '', tierNum: 0 };
-    if (userInfo.dataValues.buyCount > 100) {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/e48662f28115ee80b2e27a4ab16d2241.png';
-      tierInfo.tierNum = 99999;
-      await User.update(
-        {
-          tier: 'Challenger',
-        },
-        {
-          where: {
-            id: user.id,
+      // delete userInfo.dataValues.password;
+      // buy Count에 따른 티어 이미지와 남은 구매 횟수도 알려줘야 됨
+      let tierInfo = { tierImg: '', tierNum: 0 };
+      if (userInfo.dataValues.buyCount > 100) {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/e48662f28115ee80b2e27a4ab16d2241.png';
+        tierInfo.tierNum = 99999;
+        await User.update(
+          {
+            tier: 'Challenger',
           },
-        },
-      );
-    } else if (userInfo.dataValues.buyCount >= 40) {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/4377f47c6e65242762f685f87c6420a2.png';
-      tierInfo.tierNum = 100 - userInfo.dataValues.buyCount;
-      await User.update(
-        {
-          tier: 'GrandMaster',
-        },
-        {
-          where: {
-            id: user.id,
+          {
+            where: {
+              id: user.id,
+            },
           },
-        },
-      );
-    } else if (userInfo.dataValues.buyCount >= 20) {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/1144f3345a6513055bcd854c6df0f20d.png';
-      tierInfo.tierNum = 40 - userInfo.dataValues.buyCount;
-      await User.update(
-        {
-          tier: 'Master',
-        },
-        {
-          where: {
-            id: user.id,
+        );
+      } else if (userInfo.dataValues.buyCount >= 40) {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/4377f47c6e65242762f685f87c6420a2.png';
+        tierInfo.tierNum = 100 - userInfo.dataValues.buyCount;
+        await User.update(
+          {
+            tier: 'GrandMaster',
           },
-        },
-      );
-    } else if (userInfo.dataValues.buyCount >= 15) {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/f960127ec20a0948a4871c72aeeb0cd3.png';
-      tierInfo.tierNum = 20 - userInfo.dataValues.buyCount;
-      await User.update(
-        {
-          tier: 'Diamond',
-        },
-        {
-          where: {
-            id: user.id,
+          {
+            where: {
+              id: user.id,
+            },
           },
-        },
-      );
-    } else if (userInfo.dataValues.buyCount >= 10) {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/ff8b61da354a9fe0728b908158775560.png';
-      tierInfo.tierNum = 15 - userInfo.dataValues.buyCount;
-      await User.update(
-        {
-          tier: 'Platinum',
-        },
-        {
-          where: {
-            id: user.id,
+        );
+      } else if (userInfo.dataValues.buyCount >= 20) {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/1144f3345a6513055bcd854c6df0f20d.png';
+        tierInfo.tierNum = 40 - userInfo.dataValues.buyCount;
+        await User.update(
+          {
+            tier: 'Master',
           },
-        },
-      );
-    } else if (userInfo.dataValues.buyCount >= 6) {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/0c853789bc35fbc277b433016f5cfaf5.png';
-      tierInfo.tierNum = 10 - userInfo.dataValues.buyCount;
-      await User.update(
-        {
-          tier: 'Gold',
-        },
-        {
-          where: {
-            id: user.id,
+          {
+            where: {
+              id: user.id,
+            },
           },
-        },
-      );
-    } else if (userInfo.dataValues.buyCount >= 3) {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/ca18528cb69f37582a8d2074d6cdc11a.png';
-      tierInfo.tierNum = 6 - userInfo.dataValues.buyCount;
-      await User.update(
-        {
-          tier: 'Silver',
-        },
-        {
-          where: {
-            id: user.id,
+        );
+      } else if (userInfo.dataValues.buyCount >= 15) {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/f960127ec20a0948a4871c72aeeb0cd3.png';
+        tierInfo.tierNum = 20 - userInfo.dataValues.buyCount;
+        await User.update(
+          {
+            tier: 'Diamond',
           },
-        },
-      );
-    } else if (userInfo.dataValues.buyCount >= 1) {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/8f0185e298221bbe87fa5777d646294f.png';
-      tierInfo.tierNum = 3 - userInfo.dataValues.buyCount;
-      await User.update(
-        {
-          tier: 'Bronze',
-        },
-        {
-          where: {
-            id: user.id,
+          {
+            where: {
+              id: user.id,
+            },
           },
-        },
-      );
-    } else {
-      tierInfo.tierImg =
-        'https://img.fmnation.net/files/attach/images/3423/628/779/063/3c62c3572310e427e1c2aefbaa41becb.png';
-      tierInfo.tierNum = 1 - userInfo.dataValues.buyCount;
+        );
+      } else if (userInfo.dataValues.buyCount >= 10) {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/ff8b61da354a9fe0728b908158775560.png';
+        tierInfo.tierNum = 15 - userInfo.dataValues.buyCount;
+        await User.update(
+          {
+            tier: 'Platinum',
+          },
+          {
+            where: {
+              id: user.id,
+            },
+          },
+        );
+      } else if (userInfo.dataValues.buyCount >= 6) {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/0c853789bc35fbc277b433016f5cfaf5.png';
+        tierInfo.tierNum = 10 - userInfo.dataValues.buyCount;
+        await User.update(
+          {
+            tier: 'Gold',
+          },
+          {
+            where: {
+              id: user.id,
+            },
+          },
+        );
+      } else if (userInfo.dataValues.buyCount >= 3) {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/ca18528cb69f37582a8d2074d6cdc11a.png';
+        tierInfo.tierNum = 6 - userInfo.dataValues.buyCount;
+        await User.update(
+          {
+            tier: 'Silver',
+          },
+          {
+            where: {
+              id: user.id,
+            },
+          },
+        );
+      } else if (userInfo.dataValues.buyCount >= 1) {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/8f0185e298221bbe87fa5777d646294f.png';
+        tierInfo.tierNum = 3 - userInfo.dataValues.buyCount;
+        await User.update(
+          {
+            tier: 'Bronze',
+          },
+          {
+            where: {
+              id: user.id,
+            },
+          },
+        );
+      } else {
+        tierInfo.tierImg =
+          'https://img.fmnation.net/files/attach/images/3423/628/779/063/3c62c3572310e427e1c2aefbaa41becb.png';
+        tierInfo.tierNum = 1 - userInfo.dataValues.buyCount;
+      }
+
+      const result = Object.assign({}, userInfo.dataValues, tierInfo);
+
+      return result;
+    } catch (err) {
+      return { message: 'err getUserInfo' };
     }
-
-    const result = Object.assign({}, userInfo.dataValues, tierInfo);
-
-    return result;
   }
 
   async deleteLineItem(token, body): Promise<void> {
@@ -826,23 +830,23 @@ export class AppService {
   }
 
   async getBell(token): Promise<object> {
-    const user = await helper.helpGetUser(token);
+    try {
+      const user = await helper.helpGetUser(token);
 
-    const bellList = await Bell.findAll({
-      where: {
-        userId: user.id,
-        // read: {
-        //   [Op.ne]: true
-        // }
-      },
-    });
-    // userId로 된 bell을 모두 가져온다.
-    // read가 false인 레코드만 가져온다.
-    // 다 가져와서 클라에서 핗터
-    // false인 배열 = bellBadge
-    // 전체 배열 = bells
+      const bellList = await Bell.findAll({
+        where: {
+          userId: user.id,
+          // read: {
+          //   [Op.ne]: true
+          // }
+        },
+      });
 
-    return bellList;
+      return bellList;
+    } catch (err) {
+      // invalid token 일 때 에러 핸들링
+      return { message: 'err getBell' };
+    }
   }
 
   async clearBellBedge(token): Promise<string> {

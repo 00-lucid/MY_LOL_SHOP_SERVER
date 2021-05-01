@@ -15,7 +15,7 @@ export default {
       if (err) {
         console.log('🚀');
         console.log(err);
-        throw new Error('invalid token');
+        throw 'invalid token';
       }
 
       return decoded;

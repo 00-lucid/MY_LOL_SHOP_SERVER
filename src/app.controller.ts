@@ -161,7 +161,6 @@ export class AppController {
   @Get('/get-bell')
   getBell(@Req() req: Request): object {
     const token = helper.helpGetToken(req);
-
     return this.appService.getBell(token);
   }
 
