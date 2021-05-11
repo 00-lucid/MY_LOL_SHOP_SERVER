@@ -1,4 +1,4 @@
-# MY_LOL_SHOP_CLIENT
+# MY_LOL_SHOP_SERVER
 
 # [프로젝트 이미지]
 ## 홈
